@@ -1,7 +1,8 @@
 
 import './App.css';
 import Board from './components/Board';
-import Toolbox from './components/ToolBar';
+import Toolbar from './components/ToolBar';
+import Toolbox from './components/ToolBox';
 import BoardProvider from './store/BoardProvider';
 import ToolBoxProvider from './store/ToolBoxProvider';
 function App() {
@@ -10,8 +11,9 @@ function App() {
   return (
     <BoardProvider>
     <ToolBoxProvider>
-      <Toolbox />
+      <Toolbar />
       <Board />
+      <Toolbox />
     </ToolBoxProvider>
     </BoardProvider>
   );

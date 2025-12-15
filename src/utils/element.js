@@ -2,26 +2,42 @@ import { ARROW_LENGTH, TOOL_ITEMS } from "../constants/toolItems";
 import rough from "roughjs/bin/rough";
 import { getArrowHeadsCoordinates } from "./Math";
 const gen = rough.generator();
-export const createRoughElement = (id, x1, y1, x2, y2, { type }) => {
+export const createRoughElement = (id, x1, y1, x2, y2, { type, stroke, fill, size }) => {
   const element = {
     id,
     x1,
     y1,
     x2,
     y2,
-    roughEle: null
+    roughEle: null,
+    type,
+    fill,
+    stroke,
+    size
   };
   let options={
     seed: id+1, //id can't be zero
+    fillStyle: "solid",
   };
 
+  if (stroke) {
+    options.stroke = stroke;
+  }
+
+  if(fill) {
+    options.fill = fill;
+  }
+
+  if(size) {
+    options.strokeWidth = size;
+  }
   switch (type) {
     case TOOL_ITEMS.LINE:
-      element.roughEle = gen.line(x1, y1, x2, y2);
+      element.roughEle = gen.line(x1, y1, x2, y2, options);
       return element;
 
     case TOOL_ITEMS.RECTANGLE:
-      element.roughEle = gen.rectangle(x1, y1, x2 - x1, y2 - y1);
+      element.roughEle = gen.rectangle(x1, y1, x2 - x1, y2 - y1, options);
       return element;
     
     case TOOL_ITEMS.CIRCLE:
@@ -31,7 +47,7 @@ export const createRoughElement = (id, x1, y1, x2, y2, { type }) => {
       return element;
 
     case TOOL_ITEMS.ARROW:
-       const {x3,y3,x4,y4} =getArrowHeadsCoordinates(x1,y1,x2,y2,ARROW_LENGTH);
+       const {x3,y3,x4,y4} =getArrowHeadsCoordinates(x1,y1,x2,y2,ARROW_LENGTH, options);
        const points=[
         [x1,y1],
          [x2,y2],

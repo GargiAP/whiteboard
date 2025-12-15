@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, {useContext } from "react";
 import classes from "./index.module.css";
 import cx from "classnames";
 import {LuRectangleHorizontal} from "react-icons/lu";
@@ -7,7 +7,7 @@ import { FaRegCircle,FaArrowRight } from "react-icons/fa";
 
 import { TOOL_ITEMS } from "../../constants/toolItems";
 import boardContext from "../../store/board.context";
-const Toolbox = () => {
+const Toolbar = () => {
   const {activeToolItem,changeToolHandler} =useContext(boardContext);
   return (
     <div className={classes.container}>
@@ -23,4 +23,4 @@ const Toolbox = () => {
   );
 };
 
-export default Toolbox;
+export default Toolbar;
