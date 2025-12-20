@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef,useLayoutEffect } from 'react';
 import rough from "roughjs";
 import boardContext from '../../store/board.context';
-import { TOOL_ACTIONS_TYPES } from '../../constants/toolItems';
+import { TOOL_ACTIONS_TYPES, TOOL_ITEMS} from '../../constants/toolItems';
 import toolboxContext from '../../store/toolBoxContext';
 
 function Board() {
@@ -21,7 +21,22 @@ function Board() {
     const roughCanvas=rough.canvas(canvas);
    
     elements.forEach(elements=>{
-      roughCanvas.draw(elements.roughEle);
+      switch(elements.type) {
+        case TOOL_ITEMS.LINE:
+        case TOOL_ITEMS.RECTANGLE: 
+        case TOOL_ITEMS.CIRCLE:
+        case TOOL_ITEMS.ARROW:
+          roughCanvas.draw(elements.roughEle);
+          break;
+        case TOOL_ITEMS.BRUSH:
+          context.fillStyle=elements.stroke;
+          context.fill(elements.path);
+          context.restore();
+          break;
+        default:
+          throw new Error("type not recognised");
+
+      }
     });
     return ()=> {
       context.clearRect(0,0,canvas.width,canvas.height);

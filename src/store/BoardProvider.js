@@ -2,8 +2,9 @@
 import React, { useReducer } from "react";
 import rough from "roughjs/bin/rough";
 import boardContext from "./board.context";
-import { createRoughElement } from "../utils/element";
+import { createRoughElement, getSvgPathFromStroke } from "../utils/element";
 import { BOARD_ACTIONS, TOOL_ACTIONS_TYPES, TOOL_ITEMS } from "../constants/toolItems";
+import getStroke from "perfect-freehand";
 const gen= rough.generator();
 const boardReducer = (state, action) => {
   switch (action.type) {
@@ -34,7 +35,32 @@ const boardReducer = (state, action) => {
             const {clientX,clientY} =action.payload;
             const newElements=[...state.elements];
             const index=state.elements.length-1;
-            const {x1,y1,stroke,fill, size} =newElements[index];
+            const {x1,y1,stroke,fill, size, type} =newElements[index];
+            switch(type) {
+              case TOOL_ITEMS.LINE:
+              case TOOL_ITEMS.RECTANGLE: 
+              case TOOL_ITEMS.CIRCLE:
+              case TOOL_ITEMS.ARROW:
+                   const newElement = createRoughElement(index,x1,y1,clientX,clientY,{type:state.activeToolItem, stroke, fill, size});
+                   newElements[index]=newElement;
+
+                    return{
+                        ...state,
+                        elements:newElements,
+                    }
+              case TOOL_ITEMS.BRUSH: 
+                    newElements[index].points = [...newElements[index].points, {x: clientX, y:clientY}];
+                    newElements[index].path = new Path2D(getSvgPathFromStroke(getStroke(newElements[index].points)));
+                    return {
+                      ...state,
+                      elements: newElements,
+                    };
+              default:
+                    throw new Error("Type not recognised");
+            
+            }
+            
+            }
             //newElements[index].x2=clientX;
             //newElements[index].y2=clientY;
             //newElements[index].roughEle=gen.line(
@@ -42,16 +68,7 @@ const boardReducer = (state, action) => {
              //   newElements[index].y1,
              //   clientX,
              //   clientY,
-            const newElement = createRoughElement(index,x1,y1,clientX,clientY,{type:state.activeToolItem, stroke, fill, size});
-            newElements[index]=newElement;
-
-            return{
-                ...state,
-                elements:newElements,
-            }
-            
-            }
-            
+         
         case BOARD_ACTIONS.DRAW_UP:
             {
                 return{
