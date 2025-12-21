@@ -14,7 +14,7 @@ function toolboxReducer(state, action) {
       newState[action.payload.tool].fill = action.payload.fill;
       return newState;
     }
-     case TOOLBOX_ACTIONS.CHANGE_SIZE: {         //in blocks coz defining same variables 
+     case TOOLBOX_ACTIONS.CHANGE_SIZE: {          
       const newState = { ...state };
       newState[action.payload.tool].size = action.payload.size;
       return newState;
