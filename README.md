@@ -39,7 +39,7 @@ This project demonstrates advanced **frontend engineering skills**:
 - **Brush Rendering:** perfect-freehand  
 - **State Management:** React Hooks + `useReducer`  
 - **Styling:** CSS Modules
-- 
+
 ## How to Run Locally
 
 ### Prerequisites
