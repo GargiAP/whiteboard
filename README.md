@@ -48,8 +48,8 @@ This project demonstrates advanced **frontend engineering skills**:
 
 ### Steps
 
-git clone https://github.com/GargiAP/whiteboard.git
-cd whiteboard
-npm install
-npm start
+- git clone https://github.com/GargiAP/whiteboard.git
+- cd whiteboard
+- npm install
+- npm start
 
