@@ -3,14 +3,14 @@ import classes from "./index.module.css";
 import cx from "classnames";
 import {LuRectangleHorizontal} from "react-icons/lu";
 import {FaSlash} from "react-icons/fa";
-import { FaRegCircle,FaArrowRight, FaPaintBrush, FaEraser } from "react-icons/fa";
+import { FaRegCircle,FaArrowRight, FaPaintBrush, FaEraser, FaFont } from "react-icons/fa";
 import { TOOL_ITEMS } from "../../constants/toolItems";
 import boardContext from "../../store/boardcontext";
 const Toolbar = () => {
   const {activeToolItem,changeToolHandler} =useContext(boardContext);
   return (
     <div className={classes.container}>
-      <div className={cx(classes.toolItem, { [classes.active]: activeToolItem === TOOL_ITEMS.Brush })
+      <div className={cx(classes.toolItem, { [classes.active]: activeToolItem === TOOL_ITEMS.BRUSH })
     }  onClick={()=> changeToolHandler(TOOL_ITEMS.BRUSH)}><FaPaintBrush/></div>
       <div className={cx(classes.toolItem, { [classes.active]: activeToolItem === TOOL_ITEMS.LINE })
     }  onClick={()=> changeToolHandler(TOOL_ITEMS.LINE)}><FaSlash/></div>
@@ -22,6 +22,8 @@ const Toolbar = () => {
       onClick={()=> changeToolHandler(TOOL_ITEMS.ARROW)}><FaArrowRight/></div>
        <div className={cx(classes.toolItem, { [classes.active]: activeToolItem === TOOL_ITEMS.ERASER })}
       onClick={()=> changeToolHandler(TOOL_ITEMS.ERASER)}><FaEraser/></div>
+        <div className={cx(classes.toolItem, { [classes.active]: activeToolItem === TOOL_ITEMS.TEXT })}
+      onClick={()=> changeToolHandler(TOOL_ITEMS.TEXT)}><FaFont/></div>
 
     </div>
   );

@@ -4,7 +4,7 @@ import { getArrowHeadsCoordinates } from "./Math";
 import getStroke from "perfect-freehand";
 import { isPointCloseToLine } from "./Math";
 const gen = rough.generator();
-export const createRoughElement = (id, x1, y1, x2, y2, { type, stroke, fill, size }) => {
+export const createElement = (id, x1, y1, x2, y2, { type, stroke, fill, size }) => {
   const element = {
     id,
     x1,
@@ -70,7 +70,18 @@ export const createRoughElement = (id, x1, y1, x2, y2, { type, stroke, fill, siz
 
       element.roughEle = gen.linearPath(points,options);
       return element;
+case TOOL_ITEMS.TEXT:
+  return {
+    id,
+    type,
+    x1,
+    y1,
+    text: "",
+    stroke,
+    size,
+  };
 
+      
     default:
       throw new Error('Tool not recognized dear');
   }
@@ -97,33 +108,14 @@ export const isPointNearElement = (element, pointX, pointY) => {
         isPointCloseToLine(x2, y2, x1, y2, pointX, pointY) ||
         isPointCloseToLine(x1, y2, x1, y1, pointX, pointY)
       );
-    // case TOOL_ITEMS.TEXT:
-    //   context.font = `${element.textEle.size}px Caveat`;
-    //   context.fillStyle = element.textEle.stroke;
-    //   const textWidth = context.measureText(element.textEle.text).width;
-    //   const textHeight = parseInt(element.textEle.size);
-    //   context.restore();
-    //   return (
-    //     isPointCloseToLine(x1, y1, x1 + textWidth, y1, pointX, pointY) ||
-    //     isPointCloseToLine(
-    //       x1 + textWidth,
-    //       y1,
-    //       x1 + textWidth,
-    //       y1 + textHeight,
-    //       pointX,
-    //       pointY
-    //     ) ||
-    //     isPointCloseToLine(
-    //       x1 + textWidth,
-    //       y1 + textHeight,
-    //       x1,
-    //       y1 + textHeight,
-    //       pointX,
-    //       pointY
-    //     ) ||
-    //     isPointCloseToLine(x1, y1 + textHeight, x1, y1, pointX, pointY)
-    //   );
-    case TOOL_ITEMS.BRUSH:
+      case TOOL_ITEMS.TEXT:
+          return {
+            type,
+            x1,
+            y1,
+            text: "",
+  };
+      case TOOL_ITEMS.BRUSH:
       const context = document.getElementById("canvas").getContext("2d");
       return context.isPointInPath(element.path, pointX, pointY);
     default:

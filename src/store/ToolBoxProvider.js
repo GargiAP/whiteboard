@@ -81,7 +81,7 @@ const ToolBoxProvider = ({ children }) => {
     toolboxState,
     changeStroke: changeStrokeHandler,
     changeFill: changeFillHandler,
-    changeSize: changeSizeHandler
+    changeSize: changeSizeHandler,
   };
 
   return (
