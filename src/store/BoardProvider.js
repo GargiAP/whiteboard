@@ -114,7 +114,7 @@ case BOARD_ACTIONS.UPDATE_TEXT: {
   return {
     ...state,
     elements: newElements,
-    toolActionType: TOOL_ACTIONS_TYPES.NONE, // stop writing
+    toolActionType: TOOL_ACTIONS_TYPES.NONE, 
   };
 }
         default:

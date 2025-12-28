@@ -41,9 +41,10 @@ const {
           context.restore();
           break;
         case TOOL_ITEMS.TEXT:
-          context.fillStyle = elements.stroke;
+          context.fillStyle = "#000";  
           context.font = `${elements.size}px Caveat`;
           context.fillText(elements.text, elements.x1, elements.y1);
+    break;
           break;
         default:
           throw new Error("type not recognised");
@@ -73,7 +74,7 @@ const {
   if (!lastElement) return;
 
   updateTextHandler(lastElement.id, e.target.value);
-  boardMouseUpHandler(); // ends WRITING mode
+  boardMouseUpHandler(); 
 };
 const canvas = canvasRef.current;
 
