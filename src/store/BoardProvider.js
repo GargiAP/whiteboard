@@ -1,5 +1,5 @@
 // src/store/BoardProvider.js
-import React, { useReducer, context } from "react";
+import React, { useReducer, context, useCallback } from "react";
 import rough from "roughjs/bin/rough";
 import boardContext from "./boardcontext";
 import { createElement, getSvgPathFromStroke, isPointNearElement } from "../utils/element";
@@ -272,19 +272,19 @@ const updateTextHandler = (id, text) => {
   });
 };
 
-const boardUndoHandler = () => {
+const boardUndoHandler = useCallback(() => {
   dispatchBoardAction({
     type: BOARD_ACTIONS.UNDO,
   })
 
-}
+}, []);
 
-const boardRedoHandler = () => {
+const boardRedoHandler = useCallback(() => {
   dispatchBoardAction({
     type: BOARD_ACTIONS.REDO,
   })
 
-}
+},[]);
 
 const boardContextValue = {
   activeToolItem: boardState.activeToolItem,

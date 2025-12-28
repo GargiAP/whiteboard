@@ -12,7 +12,9 @@ const {
   boardMouseMoveHandler,
   toolActionType,
   boardMouseUpHandler,
-  updateTextHandler
+  updateTextHandler,
+  undo,
+  redo
 } = useContext(boardContext);
   const {toolboxState} = useContext(toolboxContext);
   useEffect(() => {
@@ -21,6 +23,24 @@ const {
     canvas.height=window.innerHeight;
     
   }, []);
+
+    useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.ctrlKey && event.key === "z") {
+        undo();
+        return;
+      }
+      if (event.ctrlKey && event.key === "y") {
+        redo();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [undo, redo]);
+
 
   useLayoutEffect(() => {  //new effect by react
     const canvas = canvasRef.current;
