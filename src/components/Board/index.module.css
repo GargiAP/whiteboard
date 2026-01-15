@@ -1,0 +1,9 @@
+.textElementBox {
+  position: absolute;
+  background: transparent;
+  resize: none;
+  outline: none;
+  padding: 4px;
+  font-family: Caveat;
+  white-space: pre;
+}
